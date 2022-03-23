@@ -1,81 +1,162 @@
-// What we want to happen
-// 1. User clicks start  button
-// 2.5 min timer starts first question displays
-// 3.user selects answer to first question  if user get 
-// question right then they will be told they were right and will keep  5 min on timer or add 30 secs
-// 4.If they are wrong they will be told they were wrong and will lose 30 seconds
-// 5.once timer reaches 0 they will be done  and  they will have an opportunity to 
-// add their name to the leaderboard or  retry 
+ const quizQuestions =[
+            
+            {
+                question: "Which type of language is JavaScript ___",
+                choices:["Object-Oriented","Object-Based","Assembly-language","High-level"],
+                answer: "Object-Oriented"
+            },
+        
+            {
+                question:"Who is the creater of Javascript?",
+                choices:["Brendan Eich" , " Bill Gates", "Hakon Wium Lie " ,"Jack Ma"],
+                answer: ["Brendam Eich"]
+            },
+            
+            {
+                question:"What is Javascript used for?",
+                choices: ["To structure a website", "To style a website", "To make a website interactive", "Neither"],
+                answer:  "To make a website interactive"
+            },
+            
+            {
+                question: "What pair of symbols comes after the word 'function' in a javascript function",
+                choices:["()", "{}","[]","//"],
+                answer: "()"
+            },
+            
+            {
+                question:"What is the syntax for declaring a var",
+                choices: [,"Var = ", " Let Var = ", "Variable = ","Both A and B"],
+                answer: "Var = "
+            },
+            
+            
+        ];
 
-// variables
+var questionNumber =[quizQuestions[0], quizQuestions[1], quizQuestions[2], quizQuestions[3], quizQuestions[4]] ;
 
 
-
+// questions variables
+var question = document.getElementById("quiz-question")
+//answer variables
+var answer1 = document.querySelector("#answer-1")
+var answer2 = document.querySelector("#answer-2")
+var answer3 = document.querySelector("#answer-3")
+var answer4 = document.querySelector("#answer-4")
+// answer button events
 // Document Query Selectors
 
 startButton = document.querySelector("#start-button");
 startButtonDiv = document.querySelector("#hide-start")
+
 // Start quiz with button click
- startButton.addEventListener("click", function(){
+startButton.addEventListener("click", startQuiz(questionNumber,quizQuestions));
 
+
+
+// start button funtionality
+function startQuiz(quizQuestions, questionNumber){
+    var quizForm = document.getElementById("display-quiz");
+    var displaySetting = quizForm.style.display;
     
+    
+    if(displaySetting == "block") {
+        quizForm.style.display = "none" ; 
+    }
+    else{
+        takeQuiz(quizQuestions, questionNumber)
+        quizForm.style.display = "block"; 
+        
+        startButtonDiv.style.display ="none";
+        
+    }
+    // timer clock
+    
+    var clock = setInterval(function(){ myTimer() }, 1000);
+    var timerAmount = 60;
+    
+    function myTimer() {
+        if(timerAmount == 0)
+        {
+            myStopFunction();
+        }
+        
+        document.getElementById("safeTimerDisplay").innerHTML = '00:' + zeroPad(timerAmount,2);
+        timerAmount = timerAmount  - 1;
+        
+    }
+    
+    function myStopFunction() {
+        clearInterval(clock);
+    }
+    
+    function zeroPad(num, places) {
+        var zero = places - num.toString().length + 1;
+        return Array(+(zero > 0 && zero)).join("0") + num;
+    }
+    // quiz questions
+    
+    function takeQuiz (quizQuestions, questionNumber){
+       
+        
+       
+    //    console.log(answer1.textContent)
+       //    for (let i = questionNumber; i< questionNumber.length; 1++){
+           changeQuestion()
+           function changeQuestion (){
+               
+           
+        if(questionNumber >=questionNumber.length){
 
-    startQuiz()
-
-    function startQuiz(){
-       var quizForm = document.getElementById("display-quiz")
-       var displaySetting = quizForm.style.display
-   
-       if(displaySetting == "block") {
-           quizForm.style.display = "none"  
+             clearInterval(clock);
        }
        else{
-           quizForm.style.display = "block"; 
-           
-           startButtonDiv.style.display ="none"
+
+        for(let i= questionNumber[0]; i = questionNumber.length; i++){
+
+           var currentQuestion = questionNumber[0]
+        answer1.textContent = currentQuestion.choices[0];
+        answer2.textContent = currentQuestion.choices[1];
+        answer3.textContent = currentQuestion.choices[2];
+        answer4.textContent = currentQuestion.choices[3];
+        question.textContent = currentQuestion.question;
+
        }
-       }
 
-    //    takeQuiz()
-
-    //    function takeQuiz (){
-    //        var quizQuestions =[
-
-    //         {
-    //         question: "Which type of JavaScript language is ___",
-    //         choices:["Object-Oriented","Object-Based","Assembly-language","High-level"],
-    //         answer: "Object-Oriented"
-    //         },
-
-    //         {
-    //         question:"Which one of the following also known as Conditional Expression:",
-    //         choices:["Alternative to if-else", "Switch statement", ],
-    //         answer:
-    //         },
-
-    //         {
-    //         question:,
-    //         choices:,
-    //         answer:
-    //         },
-
-    //         {
-    //         question:,
-    //         choices:,
-    //         answer:
-    //         },
-
-    //         {
-    //         question:,
-    //         choices:,
-    //         answer:
-    //         },
-           
-           
-    //         ];
-
+    //    console.log(quizQuestions[2])
     //    }
- });
+    //    document.getElementById("quiz-question").innerHTML +=   answer1.textContent
+    }
+        // return
+        // console.log(quizQuestions)
+        // checkAnswers()
+        // function checkAnswers(event) {
+        //     if(event.target==true){
 
-    
+        //         console.log("alert")
+        //         answer1.addEventListener("click", checkAnswers );
+        //         answer2.addEventListener("click", checkAnswers);
+        //         answer3.addEventListener("click", checkAnswers );
+        //         answer4.addEventListener("click", checkAnswers );
+
+                
+
+        //             alert("it works")
+                   
+                
+
+                   
+                    
+        //         }
+                
+                
+        //     }
+            
+  
  
+        
+        
+    
+    }
+}
+}
